@@ -6,7 +6,8 @@
   "module": "lib/index.esm.js",
   "unpkg": "lib/index.umd.min.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "build": "preppy"
   },
   "author": "Joe Ennis",
   "license": "ISC",
@@ -14,5 +15,9 @@
     "@babel/preset-env": "^7.7.4",
     "jest": "^24.9.0",
     "preppy": "^9.1.0"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ennisj9/htmf.git"
   }
 }
