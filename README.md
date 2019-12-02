@@ -3,9 +3,9 @@
 HTMF (Hypertext Markup Function) is a method for constructing HTML or DOM trees using native javascript. It looks something like this:
 
 ```javascript
-import Mf from 'htmf';
+import { toString } from 'htmf';
 
-Mf.toString($ => { $
+toString($ => { $
 	.a('html')
 		.b('head')
 		.b('body')
@@ -40,8 +40,9 @@ HTMF has different implementations for different frameworks and environments:
 
 |Framework|Module|
 |---|---|
-| Vue | brue |
-| React | htmf-react |
+| Vue | [brue](https://www.npmjs.com/package/brue) |
+| React | [htmf-react](https://www.npmjs.com/package/htmf-react) |
+
 
 This module is intended to be used by an implementation that will add features and/or tie into a framework.
 

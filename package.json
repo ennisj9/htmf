@@ -1,12 +1,12 @@
 {
   "name": "htmf",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Hypertext Markup Function. Express HTML/DOM trees using native javascript.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
   "unpkg": "lib/index.umd.min.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
     "build": "preppy"
   },
   "author": "Joe Ennis",
@@ -17,7 +17,7 @@
     "preppy": "^9.1.0"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/ennisj9/htmf.git"
+    "type": "git",
+    "url": "https://github.com/ennisj9/htmf.git"
   }
 }

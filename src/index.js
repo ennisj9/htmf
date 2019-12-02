@@ -109,7 +109,9 @@ const toString = (func, tab) => {
 	}
 	return process(func).map(convert).join();
 }
-export { process, toString };
+const Mf = { process, toString };
+
+export { Mf as default, process, toString };
 	
 
 
