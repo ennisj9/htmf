@@ -6,33 +6,33 @@ HTMF (Hypertext Markup Function) is a method for constructing HTML or DOM trees 
 import { toString } from 'htmf';
 
 toString($ => { $
-	.a('html')
-		.b('head')
-		.b('body')
-			.c('h1').text('Hello World')
-			.c('span').text('HTMF can create:')
-			.c('ul')
-				.d('li .first').text('classes')
-				.d('li #second').text('ids')
-				.d('li')
-					.e('a', {href: 'google.com'}).text('and attributes')
+  .a('html')
+    .b('head')
+    .b('body')
+      .c('h1').text('Hello World')
+      .c('span').text('HTMF can express:')
+      .c('ul')
+        .d('li .first').text('classes')
+        .d('li #second').text('ids')
+        .d('li')
+          .e('a', {href: 'google.com'}).text('and attributes')
 })
 ```
 which creates
 ```html
 <html>
-	<head></head>
-	<body>
-		<h1>Hello World</h1>
-		<span>HTMF can express:</span>
-		<ul>
-			<li class="first">classes</li>
-			<li id="second">ids</li>
-			<li>
-				<a href="google.com">and attributes</a>
- 			</li>
-		</ul>
-	</body>
+  <head></head>
+  <body>
+    <h1>Hello World</h1>
+    <span>HTMF can express:</span>
+    <ul>
+      <li class="first">classes</li>
+      <li id="second">ids</li>
+      <li>
+        <a href="google.com">and attributes</a>
+      </li>
+    </ul>
+  </body>
 </html>
 
 ```
@@ -44,7 +44,7 @@ HTMF has different implementations for different frameworks and environments:
 | React | [htmf-react](https://www.npmjs.com/package/htmf-react) |
 
 
-This module is intended to be used by an implementation that will add features and/or tie into a framework.
+This module is intended to be used as a starting step for an implentation that will add features and/or tie into a framework.
 
 ## How it works
 
@@ -63,16 +63,16 @@ And in special cases:
 So the following two builds are equivalent:
 ```javascript
 $.a('div')
-	.b('div .someclass .green #id', {onclick: 'script', title: 'tooltip'})
+  .b('div .someclass .green #id', {onclick: 'script', title: 'tooltip'})
 ```
 ```javascript
 $.a('div')
-	.b('.someclass','.green','#id','div', {onclick: 'script'}, {title: 'tooltip'})
+  .b('.someclass','.green','#id','div', {onclick: 'script'}, {title: 'tooltip'})
 ```
 which creates:
 ```html
 <div>
-	<div class="someclass green" id="id" onclick="script" title="tooltip"></div>
+  <div class="someclass green" id="id" onclick="script" title="tooltip"></div>
 </div>
 ```
 ### Node modifiers
@@ -85,11 +85,11 @@ Expressing text nodes (no element) can be done in a number of ways:
 ```javascript
 $.a('div').text('some text')
 $.a('div')
-	.b().text('some text')
+  .b().text('some text')
 $.a('div')
-	.b(String, 'some text')
+  .b(String, 'some text')
 ```
-are all equivalent. As you can see, passing the global String constructor as the first argument of a node will break from the normal parsing of node arguments and create a text node using the second argument.
+All equivalent. As you can see, passing the global String constructor as the first argument of a node will break from the normal parsing of node arguments and create a text node using the second argument.
 
 ### Single node shorthand
 
@@ -108,18 +108,18 @@ HTMF.process() is intended to be used by other HTMF implementations. It returns 
 
 ```javascript
 {
-	element: 'div',
-	classes: ['link','green'],
-	attributes: {id: 'greenlink'},
-	children: []
+  element: 'div',
+  classes: ['link','green'],
+  attributes: {id: 'greenlink'},
+  children: []
 }
 //or a text node:
 {
-	element: null,
-	classes: [],
-	attributes: {},
-	children: [],
-	text: 'some text'
+  element: null,
+  classes: [],
+  attributes: {},
+  children: [],
+  text: 'some text'
 }
 ```
 An example showing a node modifiers object:
@@ -127,17 +127,17 @@ An example showing a node modifiers object:
 import { process } from HTMF;
 
 const api = {
-	click: (node, args) => {
-		node.attributes.onClick = args[0];
-	},
-	hide: node => {
-		node.attributes.style = "display: none;"
-	}
+  click: (node, func) => {
+    node.attributes.onClick = func;
+  },
+  hide: node => {
+    node.attributes.style = "display: none;"
+  }
 }
 const roots = process($ => { $
-	$.a('div')
-		.b('div .hidden').hide()
-		.b('div .button').click(() => { console.log('clicked!') }) 
+  $.a('div')
+    .b('div .hidden').hide()
+    .b('div .button').click(() => { console.log('clicked!') }) 
 }, api);
 ```
 
