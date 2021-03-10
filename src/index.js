@@ -89,7 +89,7 @@ const toString = (func, tab) => {
 	const convert = node => {
 		let prefix = ''
 		let suffix = '';
-		if(node.element){
+		if(node.element && typeof node.element == 'string'){
 			prefix = '<'+node.element;
 			suffix = '</'+node.element +'>';
 			if(node.classes.length > 0){
@@ -101,6 +101,8 @@ const toString = (func, tab) => {
 				prefix += ' '+key + '="' + node.attributes[key] + '"';
 			})
 			prefix += '>';
+		} else if (node.element && typeof node.element == 'function'){
+			prefix += toString(node.element(node.attributes))
 		}
 		if(node.text) prefix += node.text;
 		const children = node.children.reduce((sofar, child) => {
@@ -111,6 +113,15 @@ const toString = (func, tab) => {
 	}
 	return process(func).map(convert).join();
 }
+
+
+const component = compFunction => {
+	return params => {
+		renderFunction = compFunction(params)
+		return toString(renderFunction)
+	}
+}
+
 const Mf = { process, toString };
 
 export { Mf as default, process, toString };

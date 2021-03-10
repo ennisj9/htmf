@@ -59,6 +59,7 @@ Nodes accept any number of arguments, and string arguments separated by spaces a
 
 And in special cases:
 - Functions indicate the element type (imagine a component class in React)
+**note** - this now works with included `toString()` method [as well](#toString) 
 - Objects placed as the first argument indicate the element type (a Vue component for instance)
 
 So the following two builds are equivalent:
@@ -142,10 +143,36 @@ const roots = process($ => { $
 }, api);
 ```
 
-### .toString(buildFunction) 
+### <a id="toString"></a>.toString(buildFunction) 
 
-A simple implenetation of HTMF using .process(). It returns an html string created with the buildFunction.
+An implenetation of HTMF using ``.process()``. It returns an html string created with the buildFunction. Besides just simple HTML elements, it can handle "component functions" as well (similiar to react)
 
+Here's an example:
+```javascript
+let innerComponent = params => {
+  let timesTwo = params.value * 2;
+  return $ => { $
+    .a('div .inner')
+      .b('p').text(`twice the value: ${timesTwo}`)
+  }
+}
 
+let outterComponent = params => {
+  return $ => { $
+    .a('div .outer')
+      .b(innerComponent, {value: params.count})
+      .b('div').text('after')
+  }
+}
 
-
+toString(outterComponent({count: 2}));
+```
+would create
+```html
+<div class="outer">
+  <div class="inner">
+    <p>twice the value: 4</p>
+  </div>
+  <div>after</div>
+</div>
+```

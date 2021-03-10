@@ -129,4 +129,34 @@ describe('toString()', () => {
 		})).toEqual('<div><span><div class="inner">foobar</div></span><p>other</p></div>')
 	})
 
-})
+	it('can handle component elements and text', () => {
+		let comp = params => {
+			return $ => { $
+				.a('div')
+					.b('p').text('something')
+			}
+		}
+		expect(toString(comp())).toEqual('<div><p>something</p></div>')
+	})
+
+	it('can handle nested components', () => {
+		let compA = params => {
+			return $ => { $
+				.a('div')
+					.b('p').text(params.foo)
+			}
+		}
+
+		let compB = params => {
+			return $ => { $
+				.a('div')
+					.b('span').text('first')
+					.b(compA, {foo: 'bar'})
+					.b('p').test('end')
+			}
+		}
+
+		expect(toString(compB())).toEqual('<div><span>first</span><div><p>bar</p></div><p>end</p></div>')
+	})
+
+});
