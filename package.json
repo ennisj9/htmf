@@ -1,10 +1,9 @@
 {
   "name": "htmf",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Hypertext Markup Function. Express HTML/DOM trees using native javascript.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
-  "unpkg": "lib/index.umd.min.js",
   "scripts": {
     "test": "jest",
     "build": "preppy"
@@ -12,9 +11,9 @@
   "author": "Joe Ennis",
   "license": "ISC",
   "devDependencies": {
-    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-env": "^7.13.10",
     "jest": "^24.9.0",
-    "preppy": "^9.1.0"
+    "preppy": "^10.9.4"
   },
   "repository": {
     "type": "git",
