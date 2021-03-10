@@ -55,10 +55,11 @@ Nodes accept any number of arguments, and string arguments separated by spaces a
 - Strings with no prefix indicate the element type
 - Strings with ``.`` prefix indicate a class
 - Strings with ``#`` prefix indicate the id
-- Objects indicate attributes
+- Objects that are not the first argument indicate attributes
 
 And in special cases:
-- Functions may indicate the element type (imagine a component class in React)
+- Functions indicate the element type (imagine a component class in React)
+- Objects placed as the first argument indicate the element type (a Vue component for instance)
 
 So the following two builds are equivalent:
 ```javascript
@@ -67,7 +68,7 @@ $.a('div')
 ```
 ```javascript
 $.a('div')
-  .b('.someclass','.green','#id','div', {onclick: 'script'}, {title: 'tooltip'})
+  .b('div', '.someclass','.green','#id', {onclick: 'script'}, {title: 'tooltip'})
 ```
 which creates:
 ```html
@@ -102,9 +103,9 @@ will create ``<a href="google.com">A link to google</a>``
 
 ## Api
 
-### .process(buildFunction, nodeModifiersObject:optional)
+### .process(buildFunction, nodeModifiersObject:optional, ...furtherArgs)
 
-HTMF.process() is intended to be used by other HTMF implementations. It returns an array of the root nodes of a tree created by the buildFunction. An example of the node structure:
+HTMF.process() is intended to be used by other HTMF implementations. It returns an array of the root nodes of a tree created by the buildFunction. Any futher arguments will be passed to the build function, An example of the node structure:
 
 ```javascript
 {

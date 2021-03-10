@@ -22,7 +22,7 @@ const createNode = (...args) => (
 	}, ...args)
 )
 
-const process = (func, apidef) => {
+const process = (func, apidef, ...furtherArgs) => {
 	
 	if(Array.isArray(func)){
 		return process($ => {
@@ -56,14 +56,14 @@ const process = (func, apidef) => {
 			if(args[0] === String) {
 				node.text = String(args[1]);
 			}
-			else argumentsToArray(args).map(arg => {
+			else argumentsToArray(args).map((arg,i) => {
 				if(typeof arg == 'string') {
 					let fc = arg.charAt(0);
 					if(fc === '#') node.attributes.id = clip(arg);
 					else if(fc === '.') node.classes.push(clip(arg))
 					else node.element = arg;
-				} else if(typeof arg == 'object') {
-					Object.assign(node.attributes, arg);
+				} else if(typeof arg == 'object' && i != 0) {
+          Object.assign(node.attributes, arg);
 				} else {
 					node.element = arg;
 				}
@@ -80,9 +80,11 @@ const process = (func, apidef) => {
 			return builder;
 		}
 	});
-	func(builder);
+	func(builder, ...furtherArgs);
 	return roots;
 }
+
+
 const toString = (func, tab) => {
 	const convert = node => {
 		let prefix = ''

@@ -75,7 +75,21 @@ describe('process()', () => {
 		expect(res).toMatchObject(shouldBe)
 		expect(process([],'some text')).toMatchObject(shouldBe);
 	})
-
+  
+  it('treats the first argument as possible element', () => {
+    let res = process($ => { $
+			.a({dont: 'touchthis'}, '.class', {attr: 'val'})
+		})
+    let shouldBe = [
+      {
+        element: {dont: 'touchthis'},
+        children: [],
+        classes: ['class'],
+        attributes: {attr: 'val'}
+      }
+    ]
+  })
+  
 });
 
 describe('toString()', () => {
